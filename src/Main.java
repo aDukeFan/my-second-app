@@ -4,7 +4,6 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        FileReader fileReader = new FileReader();
         YearManager yearManager = new YearManager();
         MonthsManager monthsManager = new MonthsManager();
         Checker checker = new Checker();
@@ -14,13 +13,11 @@ public class Main {
             int point = scanner.nextInt();
             switch (point) {
                 case 1:
-                    monthsManager.monthManager("Январь", fileReader.readFileContents("m.202101.csv"));
-                    monthsManager.monthManager("Февраль", fileReader.readFileContents("m.202102.csv"));
-                    monthsManager.monthManager("Март", fileReader.readFileContents("m.202103.csv"));
+                    monthsManager.readMonthsFiles(); //изменил в соотвествии с замечаниями
                     System.out.println("Отчеты за январь, ферваль и март считаны и сохранены");
                     break;
                 case 2:
-                    yearManager.yearManager(fileReader.readFileContents("y.2021.csv"));
+                    yearManager.readYearFile(); //изменил по аналогии с чтением месяцев, чтобы убрать вызов fileReader из main
                     System.out.println("Частичный годовой отчет за 2021 год считан и сохранен");
                     break;
                 case 3:

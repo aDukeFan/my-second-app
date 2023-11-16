@@ -17,7 +17,7 @@ public class Checker {
                 StringBuilder difference = new StringBuilder();
                 for (Map.Entry<String, Integer> item : monthsTotalAccount.entrySet()) {
                     if (!yearsTotalAccount.get(item.getKey()).equals(item.getValue())) {
-                        difference.append(String.format("Данные по месяцу - %s не совпадают", item.getKey()));
+                        difference.append(String.format("Данные по месяцу - %s не совпадают\n", item.getKey()));
                     }
                 }
                 return String.valueOf(difference);

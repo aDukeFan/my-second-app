@@ -4,9 +4,11 @@ import java.util.Map;
 
 public class YearManager {
     public ArrayList<SaveYear> year = new ArrayList<>();
+    FileReader fileReader = new FileReader();
     Calculator calculator = new Calculator();
 
-    public void yearManager(ArrayList<String> annualAccount) {
+    public void readYearFile() {
+        ArrayList<String> annualAccount = fileReader.readFileContents("y.2021.csv");
         for (int i = 1; i < annualAccount.size(); i++) {
             String[] line = annualAccount.get(i).split(",");
             String month = line[0];
@@ -23,25 +25,11 @@ public class YearManager {
         } else {
             ArrayList<Integer> deb = new ArrayList<>();
             ArrayList<Integer> cred = new ArrayList<>();
-            for (SaveYear line : year) {
-                if (line.month.equals("01")) {
-                    if (line.isExpense) {
-                        cred.add(line.amount);
-                    } else {
-                        deb.add(line.amount);
-                    }
-                } else if (line.month.equals("02")) {
-                    if (line.isExpense) {
-                        cred.add(line.amount);
-                    } else {
-                        deb.add(line.amount);
-                    }
-                } else if (line.month.equals("03")) {
-                    if (line.isExpense) {
-                        cred.add(line.amount);
-                    } else {
-                        deb.add(line.amount);
-                    }
+            for (SaveYear line : year) { //упростил, были лишние ненужные условия
+                if (line.isExpense) {
+                    cred.add(line.amount);
+                } else {
+                    deb.add(line.amount);
                 }
             }
             System.out.print("Рассматриваемый год: 2021\n" +
@@ -57,26 +45,29 @@ public class YearManager {
     public LinkedHashMap<String, Integer> getYearsTotalAccount() {
         LinkedHashMap<String, Integer> yearsTotalAccount = new LinkedHashMap<>();
         for (SaveYear line : year) {
-            if (line.month.equals("01")) {
-                if (line.isExpense) {
-                    yearsTotalAccount.put("Январь", yearsTotalAccount.getOrDefault("Январь", 0) - line.amount);
-                } else {
-                    yearsTotalAccount.put("Январь", yearsTotalAccount.getOrDefault("Январь", 0) + line.amount);
-                }
-            } else if (line.month.equals("02")) {
-                if (line.isExpense) {
-                    yearsTotalAccount.put("Февраль", yearsTotalAccount.getOrDefault("Февраль", 0) - line.amount);
-                } else {
-                    yearsTotalAccount.put("Февраль", yearsTotalAccount.getOrDefault("Февраль", 0) + line.amount);
-                }
-            } else if (line.month.equals("03")) {
-                if (line.isExpense) {
-                    yearsTotalAccount.put("Март", yearsTotalAccount.getOrDefault("Март", 0) - line.amount);
-                } else {
-                    yearsTotalAccount.put("Март", yearsTotalAccount.getOrDefault("Март", 0) + line.amount);
-                }
+            switch (line.month) {
+                case "01":
+                    if (line.isExpense) {
+                        yearsTotalAccount.put("Январь", yearsTotalAccount.getOrDefault("Январь", 0) - line.amount);
+                    } else {
+                        yearsTotalAccount.put("Январь", yearsTotalAccount.getOrDefault("Январь", 0) + line.amount);
+                    }
+                    break;
+                case "02":
+                    if (line.isExpense) {
+                        yearsTotalAccount.put("Февраль", yearsTotalAccount.getOrDefault("Февраль", 0) - line.amount);
+                    } else {
+                        yearsTotalAccount.put("Февраль", yearsTotalAccount.getOrDefault("Февраль", 0) + line.amount);
+                    }
+                    break;
+                case "03":
+                    if (line.isExpense) {
+                        yearsTotalAccount.put("Март", yearsTotalAccount.getOrDefault("Март", 0) - line.amount);
+                    } else {
+                        yearsTotalAccount.put("Март", yearsTotalAccount.getOrDefault("Март", 0) + line.amount);
+                    }
+                    break;
             }
-
         }
         return yearsTotalAccount;
     }
