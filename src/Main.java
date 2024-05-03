@@ -7,21 +7,24 @@ public class Main {
         YearManager yearManager = new YearManager();
         MonthsManager monthsManager = new MonthsManager();
         Checker checker = new Checker();
-        System.out.println("Здравствуйте!");
+        System.out.println("Welcome!");
         while (true) {
             printMenu();
             int point = scanner.nextInt();
             switch (point) {
                 case 1:
-                    monthsManager.readMonthsFiles(); //изменил в соотвествии с замечаниями
-                    System.out.println("Отчеты за январь, ферваль и март считаны и сохранены");
+                    monthsManager.readMonthsFiles();
+                    System.out.println(
+                            "Reports for January, February and March are read and saved");
                     break;
                 case 2:
-                    yearManager.readYearFile(); //изменил по аналогии с чтением месяцев, чтобы убрать вызов fileReader из main
-                    System.out.println("Частичный годовой отчет за 2021 год считан и сохранен");
+                    yearManager.readYearFile();
+                    System.out.println("Partial annual report for 2021 read and saved");
                     break;
                 case 3:
-                    System.out.println(checker.compareAccounts(yearManager.getYearsTotalAccount(), monthsManager.getMonthsTotalAccount()));
+                    System.out.println(checker.compareAccounts(
+                            yearManager.getYearsTotalAccount(),
+                            monthsManager.getMonthsTotalAccount()));
                     break;
                 case 4:
                     monthsManager.showMonthsStatistic();
@@ -30,24 +33,25 @@ public class Main {
                     yearManager.showYearStatistic();
                     break;
                 case 0:
-                    System.out.print("Спасибо, что пользуетесь нашей программой!\nВсего доброго!\n");
+                    System.out.print("Have a nice day!");
                     scanner.close();
                     return;
                 default:
-                    System.err.println("Такой команды нет");
+                    System.err.println("Oops! There is no such point =(");
 
             }
         }
     }
 
     static void printMenu() {
-        System.out.print("Чего изволите?\n" +
-                "1 - Считать все месячные отчёты — прочитать данные из файлов месячных отчётов, сохранить их в память программы\n" +
-                "2 - Считать годовой отчёт — прочитать данные из файла годового отчёта, сохранить их в память программы.\n" +
-                "3 - Сверить отчёты — по сохранённым данным проверить, сходятся ли отчёты за месяцы и за год.\n" +
-                "4 - Вывести информацию обо всех месячных отчётах — по сохранённым данным вывести в консоль имеющуюся информацию.\n" +
-                "5 - Вывести информацию о годовом отчёте — по сохранённым данным вывести в консоль имеющуюся информацию.\n" +
-                "0 - Завершить работу\n");
+        System.out.print("---------------\n" +
+                "1 - Read month reports\n" +
+                "2 - Read year report\n" +
+                "3 - Compare accounts\n" +
+                "4 - Show months report\n" +
+                "5 - Show year report\n" +
+                "0 - Close the app\n" +
+                "---------------\n");
     }
 }
 
